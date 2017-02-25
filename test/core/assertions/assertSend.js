@@ -2,6 +2,7 @@
 
 const Async = require('async');
 const Code = require('code');
+const PackageMeta = require('../../../package.json');
 const expect = Code.expect;
 
 const assertSend = (instance, message, queueName, transactionId, source, callback) => {
@@ -23,7 +24,7 @@ const assertSend = (instance, message, queueName, transactionId, source, callbac
         expect(payload.properties.headers.transactionId).to.be.string();
         expect(payload.properties.headers.createdAt).to.exist();
         expect(payload.properties.headers.bunnyBus).to.exist();
-        expect(payload.properties.headers.bunnyBus).to.be.equal(require('../../package.json').version);
+        expect(payload.properties.headers.bunnyBus).to.be.equal(PackageMeta.version);
 
         if (source) {
             expect(payload.properties.headers.source).to.be.string();

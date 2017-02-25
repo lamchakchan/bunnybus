@@ -1,6 +1,7 @@
 'use strict';
 
 const Code = require('code');
+const PackageMeta = require('../../../package.json');
 const expect = Code.expect;
 
 const assertSendPromise = (instance, message, queueName, transactionId, source) => {
@@ -22,6 +23,8 @@ const assertSendPromise = (instance, message, queueName, transactionId, source) 
             expect(sentMessage).to.be.equal(message);
             expect(payload.properties.headers.transactionId).to.be.string();
             expect(payload.properties.headers.createdAt).to.exist();
+            expect(payload.properties.headers.bunnyBus).to.exist();
+            expect(payload.properties.headers.bunnyBus).to.be.equal(PackageMeta.version);
 
             if (source) {
                 expect(payload.properties.headers.source).to.be.string();

@@ -12,7 +12,7 @@
     "publish",
     "subscribe"
   ],
-  "main": "lib/index.js",
+  "main": "lib/core/index.js",
   "scripts": {
     "test": "lab test",
     "build-test": ". docker/wait-on-resource.sh && npm test",

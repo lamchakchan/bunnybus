@@ -5,9 +5,10 @@ const Lab = require('lab');
 const Async = require('async');
 const Q = require('q');
 const Bluebird = require('bluebird');
+const PackageMeta = require('../../package.json');
 const Assertions = require('./assertions');
-const Helpers = require('../lib/helpers');
-const EventLogger = require('../lib/loggers').EventLogger;
+const Helpers = require('../../lib/core/helpers');
+const EventLogger = require('../../lib/core/loggers').EventLogger;
 
 const lab = exports.lab = Lab.script();
 const describe = lab.describe;
@@ -72,11 +73,11 @@ describe('helpers', () => {
 
             const result = Helpers.getPackageData();
 
-            const semverMajor = require('../package.json').version.split('.', 1);
+            const semverMajor = PackageMeta.version.split('.', 1);
 
             expect(result).to.exist();
-            expect(result.name).to.be.equal(require('../package.json').name);
-            expect(result.version).to.be.equal(require('../package.json').version);
+            expect(result.name).to.be.equal(PackageMeta.name);
+            expect(result.version).to.be.equal(PackageMeta.version);
             expect(result.semverMatch).to.be.equal(semverMajor + '.x.x');
             done();
         });
@@ -183,7 +184,7 @@ describe('helpers', () => {
 
         it('should return true when using package defaults', (done) => {
 
-            const result = Helpers.isMajorCompatible(require('../package.json').version);
+            const result = Helpers.isMajorCompatible(PackageMeta.version);
 
             expect(result).to.be.true();
             done();

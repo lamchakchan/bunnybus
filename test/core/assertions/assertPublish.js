@@ -2,6 +2,7 @@
 
 const Async = require('async');
 const Code = require('code');
+const PackageMeta = require('../../../package.json');
 const expect = Code.expect;
 
 const assertPublish = (instance, message, queueName, routeKey, transactionId, source, shouldRoute, callback) => {
@@ -25,7 +26,7 @@ const assertPublish = (instance, message, queueName, routeKey, transactionId, so
             expect(payload.properties.headers.transactionId).to.be.string();
             expect(payload.properties.headers.createdAt).to.exist();
             expect(payload.properties.headers.bunnyBus).to.exist();
-            expect(payload.properties.headers.bunnyBus).to.be.equal(require('../../package.json').version);
+            expect(payload.properties.headers.bunnyBus).to.be.equal(PackageMeta.version);
 
             if (routeKey) {
                 expect(payload.properties.headers.routeKey).to.be.equal(routeKey);
