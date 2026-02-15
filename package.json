@@ -1,44 +1,57 @@
 {
-  "name": "bunnybus",
-  "version": "3.1.1",
-  "description": "RabbitMQ driver for pub/sub with error queue / retry management",
-  "keywords": [
-    "bunnybus",
-    "rabbitmq",
-    "broker",
-    "bus",
-    "queue",
-    "pubsub",
-    "publish",
-    "subscribe"
-  ],
-  "main": "lib/index.js",
-  "scripts": {
-    "test": "lab test/node6",
-    "build-test": ". docker/wait-on-resource.sh && if [ $NODE_VERSION -eq 8 ]; then lab test/node6 && lab test/node8; else lab test/node6; fi",
-    "start-docker": "docker run -d --name=rabbitmq -p 5671:5671 -p 15672:15672 -p 5672:5672 rabbitmq:3-management",
-    "stop-docker": "docker rm -f rabbitmq",
-    "doctoc": "doctoc API.md && doctoc Example.md && doctoc Diagram.md"
-  },
-  "author": "Lam Chan",
-  "license": "BSD-3-Clause",
-  "engines": {
-    "node": "6.x.x || 8.x.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/xogroup/bunnybus"
-  },
-  "dependencies": {
-    "amqplib": "^0.5.1",
-    "async": "^2.3.0"
-  },
-  "devDependencies": {
-    "bluebird": "^3.5.0",
-    "doctoc": "^1.2.0",
-    "eslint-config-hapi": "^10.0.0",
-    "eslint-plugin-hapi": "^4.0.0",
-    "lab": "^14.3.1",
-    "q": "^1.4.1"
-  }
+    "name": "bunnybus",
+    "version": "9.0.0",
+    "description": "RabbitMQ driver for pub/sub with error queue / retry management",
+    "keywords": [
+        "bunnybus",
+        "rabbitmq",
+        "broker",
+        "bus",
+        "queue",
+        "pubsub",
+        "publish",
+        "subscribe"
+    ],
+    "main": "lib/index.js",
+    "scripts": {
+        "test": "lab test/lab",
+        "jest": "jest test/jest",
+        "start-docker": "docker run -d --name=rabbitmq -p 5671:5671 -p 15672:15672 -p 5672:5672 rabbitmq:3-management",
+        "waitfor-docker": ". docker/wait-on-resource.sh",
+        "stop-docker": "docker rm -f rabbitmq",
+        "doctoc": "doctoc API.md Example.md Diagram.md",
+        "lint": "eslint ./",
+        "lint-fix": "eslint --fix ./",
+        "lint-fix-dry-run": "eslint --fix-dry-run ./",
+        "test-coverage": "npx nyc --reporter=lcov lab test/lab --r lcov -S"
+    },
+    "author": "Lam Chan",
+    "license": "BSD-3-Clause",
+    "engines": {
+        "node": ">=20"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/xogroup/bunnybus"
+    },
+    "dependencies": {
+        "@hapi/hoek": "^11.0.7",
+        "amqplib": "^0.10.9",
+        "denque": "^2.1.0",
+        "set-interval-async": "^3.0.3"
+    },
+    "devDependencies": {
+        "@hapi/code": "^9.0.3",
+        "@hapi/eslint-plugin": "^6.0.0",
+        "@hapi/lab": "^25.3.1",
+        "@hapi/wreck": "^18.1.0",
+        "doctoc": "^2.2.1",
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.5.5",
+        "jest": "^30.2.0",
+        "prettier": "^3.8.1",
+        "sinon": "^19.0.2",
+        "wait-for-expect": "^3.0.2"
+    }
 }

@@ -5,10 +5,7 @@ Currently supports the following queueing frameworks.
 
 - [RabbitMQ](https://www.rabbitmq.com/)
 
-[![npm version](https://badge.fury.io/js/bunnybus.svg)](https://badge.fury.io/js/bunnybus)
-[![Build Status](https://travis-ci.org/xogroup/bunnybus.svg?branch=development)](https://travis-ci.org/xogroup/bunnybus)
-[![Known Vulnerabilities](https://snyk.io/test/github/xogroup/bunnybus/badge.svg)](https://snyk.io/test/github/xogroup/bunnybus)
-[![NSP Status](https://nodesecurity.io/orgs/xo-group/projects/599e335d-8668-4f77-89ea-ebac0d607378/badge)](https://nodesecurity.io/orgs/xo-group/projects/599e335d-8668-4f77-89ea-ebac0d607378)
+![Test](https://github.com/xogroup/bunnybus/workflows/Test/badge.svg)
 
 Lead Maintainer: [Lam Chan](https://github.com/lamchakchan)
 
@@ -29,33 +26,17 @@ const bunnyBus = new BunnyBus();
 
 //create a subscription
 await bunnyBus.subscribe('queue1', { 
-    'create-event' : (message, ack) => {
+    'create-event' : async ({message, ack}) => {
         console.log(message.comment);
-        ack();
-    }});
-
+        await ack();
+    }}
+);
 
 //publish to the above subscription
-bunnyBus.publish({ event : 'create-event', comment : 'hello world!' });
+const payload = { event : 'create-event', comment : 'hello world!' }
 
-);
-```
+await bunnyBus.publish({ message: payload });
 
-### With Callbacks
-```javascript
-const BunnyBus = require('bunnybus');
-const bunnyBus = new BunnyBus();
-
-//create a subscription
-bunnyBus.subscribe('queue1', { 
-    'create-event' : (message, ack) => {
-        console.log(message.comment);
-        ack();
-    }}, () => {
-
-    //publish to the above subscription
-    bunnyBus.publish({ event : 'create-event', comment : 'hello world!' });
-    }
 );
 ```
 

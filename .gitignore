@@ -3,3 +3,7 @@
 node_modules/
 npm-debug.log
 package-lock.json
+bun.lock
+bun.lockb
+coverage/
+.nyc_output/
