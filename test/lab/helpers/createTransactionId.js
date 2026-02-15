@@ -9,15 +9,15 @@ const expect = Code.expect;
 
 describe('Helpers', () => {
     describe('createTransactionId', () => {
-        it('should create an 40 character long alphanumeric token', async () => {
+        it('should create a valid UUID token', async () => {
             let sut = null;
 
             try {
                 const result = Helpers.createTransactionId();
 
                 expect(result).to.be.a.string();
-                expect(result).to.have.length(40);
-                expect(result).to.match(/^([\d\w]*)$/);
+                expect(result).to.have.length(36);
+                expect(result).to.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);
             } catch (err) {
                 sut = err;
             }
